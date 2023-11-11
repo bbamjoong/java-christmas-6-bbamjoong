@@ -30,4 +30,10 @@ public class Foods {
     private static int calculateTotalCount(List<Food> foods) {
         return foods.stream().mapToInt(Food::count).sum();
     }
+
+    public int calculateTotalPrice() {
+        return foods.stream()
+                .mapToInt(food -> food.count() * food.price())
+                .sum();
+    }
 }

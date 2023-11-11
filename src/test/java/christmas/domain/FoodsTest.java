@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -37,5 +38,14 @@ class FoodsTest {
     void correctCountTest() {
         assertThatCode(() -> Foods.of(validFoods))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    @DisplayName("양송이수프 10개, 제로콜라 10개는 9만원")
+    void calculateTotalPriceTest() {
+        Foods foods = Foods.of(validFoods);
+        int result = foods.calculateTotalPrice();
+
+        assertThat(result).isEqualTo(90000);
     }
 }

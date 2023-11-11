@@ -2,22 +2,33 @@ package christmas.domain;
 
 import christmas.exceptions.InvalidOrderException;
 
-public record Food(String name, int count) {
+public record Food(String name, int count, int price) {
     public static Food of(String name, String count) {
-        return new Food(validateMenuExistence(name), validateCount(count));
+        Menu menu = getMenuFromName(name);
+        MenuItem item = getItemFromMenu(name, menu);
+        int itemCount = validateCount(count);
+        return new Food(name, itemCount, item.price());
     }
 
-    // 메뉴판에 존재하지 않는 메뉴일 경우 예외 발생
-    private static String validateMenuExistence(String name) {
+    // 이름으로 메뉴 가져오기
+    private static Menu getMenuFromName(String name) {
         for (Menu menu : Menu.values()) {
             if (isItemInMenu(name, menu)) {
-                return name;
+                return menu;
             }
         }
         throw new InvalidOrderException();
     }
 
-    // 메뉴판에 존재하는 메뉴인지 확인
+    // 메뉴에서 아이템 가져오기
+    private static MenuItem getItemFromMenu(String name, Menu menu) {
+        return menu.getItems().stream()
+                .filter(menuItem -> menuItem.name().equals(name))
+                .findFirst()
+                .orElseThrow(InvalidOrderException::new);
+    }
+
+    // 메뉴에 아이템이 있는지 확인
     private static boolean isItemInMenu(String name, Menu menu) {
         return menu.getItems().stream()
                 .anyMatch(menuItem -> menuItem.name().equals(name));
