@@ -7,6 +7,7 @@ import static christmas.domain.Constraints.DISCOUNT_PER_DAY;
 import static christmas.domain.Constraints.SPECIAL_DISCOUNT;
 import static christmas.domain.Constraints.WEEK_DISCOUNT;
 import static christmas.domain.Constraints.ZERO;
+import static christmas.domain.DiscountType.BONUS_GIFT;
 import static christmas.domain.DiscountType.CHRISTMAS;
 import static christmas.domain.DiscountType.SPECIAL;
 import static christmas.domain.DiscountType.WEEKDAY;
@@ -25,6 +26,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -55,9 +57,10 @@ class DiscountCalculatorTest {
     static Stream<Arguments> christmasDiscountParameter() {
         return Stream.of(
                 Arguments.of("1일은 1000원 할인", CHRISTMAS_EVENT_START_DATE.getValue(), BASE_DISCOUNT.getValue()),
-                Arguments.of("25일은 3400원 할인", CHRISTMAS_EVENT_END_DATE.getValue(), BASE_DISCOUNT.getValue()
-                        + DISCOUNT_PER_DAY.getValue() * (CHRISTMAS_EVENT_END_DATE.getValue()
-                        - CHRISTMAS_EVENT_START_DATE.getValue())),
+                Arguments.of("25일은 3400원 할인", CHRISTMAS_EVENT_END_DATE.getValue(),
+                        BASE_DISCOUNT.getValue() + DISCOUNT_PER_DAY.getValue()
+                                * (CHRISTMAS_EVENT_END_DATE.getValue() - CHRISTMAS_EVENT_START_DATE.getValue())
+                ),
                 Arguments.of("26일은 0원 할인", 26, ZERO.getValue())
         );
     }
@@ -125,5 +128,47 @@ class DiscountCalculatorTest {
                 Arguments.of("8일 할인 X", 8, ZERO.getValue()),
                 Arguments.of("26일 할인 X", 26, ZERO.getValue())
         );
+    }
+
+    @Test
+    @DisplayName("120,000 이상 구매 샴페인 증정")
+    void bonusGiftDiscountTest() {
+        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), 1);
+
+        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(DiscountType.BONUS_GIFT.getLabel());
+
+        assertThat(result).isEqualTo(Menu.CHAMPAGNE.getPrice());
+    }
+
+    @Test
+    @DisplayName("120,000 미만 구매 샴페인 증정X")
+    void noBonusGiftDiscountTest() {
+        List<Food> noBonusGiftFoods = new ArrayList<>();
+        noBonusGiftFoods.add(Food.of("초코케이크", "2"));
+        discountCalculator = new DiscountCalculator(Foods.of(noBonusGiftFoods), 1);
+
+        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(DiscountType.BONUS_GIFT.getLabel());
+
+        assertThat(result).isEqualTo(ZERO.getValue());
+    }
+
+    @Test
+    @DisplayName("12월 25일 : 크리스마스 할인 + 주간 메인 메뉴 할인 + 특별 할인 + 샴페인 증정")
+    void testChristmasTest() {
+        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), CHRISTMAS_EVENT_END_DATE.getValue());
+
+        Map<String, Integer> result = discountCalculator.calculateDiscount();
+        Map<String, Integer> expected = Map.of(
+                CHRISTMAS.getLabel(), BASE_DISCOUNT.getValue() + DISCOUNT_PER_DAY.getValue()
+                        * (CHRISTMAS_EVENT_END_DATE.getValue() - CHRISTMAS_EVENT_START_DATE.getValue()),
+                WEEKDAY.getLabel(), WEEK_DISCOUNT.getValue() * 2,
+                WEEKEND.getLabel(), ZERO.getValue(),
+                SPECIAL.getLabel(), SPECIAL_DISCOUNT.getValue(),
+                BONUS_GIFT.getLabel(), Menu.CHAMPAGNE.getPrice()
+        );
+        
+        assertThat(result).isEqualTo(expected);
     }
 }
