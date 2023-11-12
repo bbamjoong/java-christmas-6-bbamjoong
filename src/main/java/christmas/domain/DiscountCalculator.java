@@ -6,9 +6,11 @@ import static christmas.domain.Constraints.CHRISTMAS_EVENT_START_DATE;
 import static christmas.domain.Constraints.DISCOUNT_PER_DAY;
 import static christmas.domain.Constraints.EVENT_MONTH;
 import static christmas.domain.Constraints.EVENT_YEAR;
+import static christmas.domain.Constraints.FREE_GIFT_PRICE_THRESHOLD;
 import static christmas.domain.Constraints.SPECIAL_DISCOUNT;
 import static christmas.domain.Constraints.WEEK_DISCOUNT;
 import static christmas.domain.Constraints.ZERO;
+import static christmas.domain.DiscountType.BONUS_GIFT;
 import static christmas.domain.DiscountType.CHRISTMAS;
 import static christmas.domain.DiscountType.SPECIAL;
 import static christmas.domain.DiscountType.WEEKDAY;
@@ -33,7 +35,8 @@ public class DiscountCalculator {
                 CHRISTMAS.getLabel(), applyChristmasEventDiscount(),
                 WEEKDAY.getLabel(), applyWeekdayDiscount(),
                 WEEKEND.getLabel(), applyWeekendDiscount(),
-                SPECIAL.getLabel(), applySpecialDayDiscount()
+                SPECIAL.getLabel(), applySpecialDayDiscount(),
+                BONUS_GIFT.getLabel(), applyBonusGiftDiscount()
         );
     }
 
@@ -64,7 +67,7 @@ public class DiscountCalculator {
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
             return calculateDiscountByCategory(MenuCategory.MAIN);
         }
-        return 0;
+        return ZERO.getValue();
     }
 
     // 주말 메인메뉴 할인
@@ -73,7 +76,7 @@ public class DiscountCalculator {
         if (dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY) {
             return calculateDiscountByCategory(MenuCategory.DESSERT);
         }
-        return 0;
+        return ZERO.getValue();
     }
 
     // 해당 카테고리 메뉴 할인
@@ -96,5 +99,13 @@ public class DiscountCalculator {
     private boolean checkSpecialDay() {
         return Arrays.stream(SpecialDay.values())
                 .anyMatch(specialDay -> specialDay.isSpecialDay(visitDay));
+    }
+
+    // 총 구매액이 120_000원 이상일 경우 샴페인 증정
+    private int applyBonusGiftDiscount() {
+        if (foods.calculateTotalPrice() >= FREE_GIFT_PRICE_THRESHOLD.getValue()) {
+            return Menu.CHAMPAGNE.getPrice();
+        }
+        return ZERO.getValue();
     }
 }
