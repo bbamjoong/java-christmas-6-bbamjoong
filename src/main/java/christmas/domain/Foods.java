@@ -5,13 +5,7 @@ import static christmas.domain.Constraints.COUNT_THRESHOLD;
 import christmas.exceptions.InvalidOrderException;
 import java.util.List;
 
-public class Foods {
-    private List<Food> foods;
-
-    private Foods(List<Food> foods) {
-        this.foods = foods;
-    }
-
+public record Foods(List<Food> orderFoods) {
     public static Foods of(List<Food> foods) {
         validateCountSum(foods);
         return new Foods(foods);
@@ -32,7 +26,7 @@ public class Foods {
     }
 
     public int calculateTotalPrice() {
-        return foods.stream()
+        return orderFoods.stream()
                 .mapToInt(food -> food.count() * food.price())
                 .sum();
     }
