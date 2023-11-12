@@ -5,6 +5,10 @@ public enum Constraints {
     COUNT_THRESHOLD(20),
     PAIR_SIZE(2),
 
+    // 이벤트 연도, 월
+    EVENT_YEAR(2023),
+    EVENT_MONTH(12),
+
     // 방문 날짜 + 이벤트 기간
     START_DATE(1),
     END_DATE(31),
