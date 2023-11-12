@@ -4,8 +4,11 @@ import static christmas.domain.Constraints.BASE_DISCOUNT;
 import static christmas.domain.Constraints.CHRISTMAS_EVENT_END_DATE;
 import static christmas.domain.Constraints.CHRISTMAS_EVENT_START_DATE;
 import static christmas.domain.Constraints.DISCOUNT_PER_DAY;
+import static christmas.domain.Constraints.WEEK_DISCOUNT;
 import static christmas.domain.Constraints.ZERO;
 import static christmas.domain.DiscountType.CHRISTMAS;
+import static christmas.domain.DiscountType.WEEKDAY;
+import static christmas.domain.DiscountType.WEEKEND;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.util.ArrayList;
@@ -48,6 +51,44 @@ class DiscountCalculatorTest {
                         + DISCOUNT_PER_DAY.getValue() * (CHRISTMAS_EVENT_END_DATE.getValue()
                         - CHRISTMAS_EVENT_START_DATE.getValue())),
                 Arguments.of("26일은 0원 할인", 26, ZERO.getValue())
+        );
+    }
+
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("weekdayDiscountParameter")
+    @DisplayName("주간 메인 메뉴 할인 테스트")
+    void weekdayDiscountTest(String testName, int visitDay, int expectedDiscount) {
+        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+
+        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(WEEKDAY.getLabel());
+
+        assertThat(result).isEqualTo(expectedDiscount);
+    }
+
+    static Stream<Arguments> weekdayDiscountParameter() {
+        return Stream.of(
+                Arguments.of("주간 메인 메뉴 개당 2023원 할인", 7, WEEK_DISCOUNT.getValue() * 2),
+                Arguments.of("주말 메인 메뉴 할인 X", 8, ZERO.getValue())
+        );
+    }
+
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("weekendDiscountParameter")
+    @DisplayName("주말 디저트 메뉴 할인 테스트")
+    void weekendDiscountTest(String testName, int visitDay, int expectedDiscount) {
+        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+
+        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(WEEKEND.getLabel());
+
+        assertThat(result).isEqualTo(expectedDiscount);
+    }
+
+    static Stream<Arguments> weekendDiscountParameter() {
+        return Stream.of(
+                Arguments.of("주말 디저트 메뉴 개당 2023원 할인", 9, WEEK_DISCOUNT.getValue() * 2),
+                Arguments.of("주간 디저트 메뉴 할인 X", 10, ZERO.getValue())
         );
     }
 }
