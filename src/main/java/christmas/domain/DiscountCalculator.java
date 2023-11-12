@@ -6,14 +6,17 @@ import static christmas.domain.Constraints.CHRISTMAS_EVENT_START_DATE;
 import static christmas.domain.Constraints.DISCOUNT_PER_DAY;
 import static christmas.domain.Constraints.EVENT_MONTH;
 import static christmas.domain.Constraints.EVENT_YEAR;
+import static christmas.domain.Constraints.SPECIAL_DISCOUNT;
 import static christmas.domain.Constraints.WEEK_DISCOUNT;
 import static christmas.domain.Constraints.ZERO;
 import static christmas.domain.DiscountType.CHRISTMAS;
+import static christmas.domain.DiscountType.SPECIAL;
 import static christmas.domain.DiscountType.WEEKDAY;
 import static christmas.domain.DiscountType.WEEKEND;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Map;
 
 public class DiscountCalculator {
@@ -29,7 +32,8 @@ public class DiscountCalculator {
         return Map.of(
                 CHRISTMAS.getLabel(), applyChristmasEventDiscount(),
                 WEEKDAY.getLabel(), applyWeekdayDiscount(),
-                WEEKEND.getLabel(), applyWeekendDiscount()
+                WEEKEND.getLabel(), applyWeekendDiscount(),
+                SPECIAL.getLabel(), applySpecialDayDiscount()
         );
     }
 
@@ -78,5 +82,19 @@ public class DiscountCalculator {
                 .filter(food -> food.menuCategory() == category)
                 .mapToInt(food -> food.count() * WEEK_DISCOUNT.getValue())
                 .sum();
+    }
+
+    // 특별 할인
+    private int applySpecialDayDiscount() {
+        if (checkSpecialDay()) {
+            return SPECIAL_DISCOUNT.getValue();
+        }
+        return ZERO.getValue();
+    }
+
+    // 달력에 별 표시가 있는 특별 할인 날짜 확인
+    private boolean checkSpecialDay() {
+        return Arrays.stream(SpecialDay.values())
+                .anyMatch(specialDay -> specialDay.isSpecialDay(visitDay));
     }
 }
