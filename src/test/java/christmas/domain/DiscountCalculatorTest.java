@@ -4,11 +4,19 @@ import static christmas.domain.Constraints.BASE_DISCOUNT;
 import static christmas.domain.Constraints.CHRISTMAS_EVENT_END_DATE;
 import static christmas.domain.Constraints.CHRISTMAS_EVENT_START_DATE;
 import static christmas.domain.Constraints.DISCOUNT_PER_DAY;
+import static christmas.domain.Constraints.SPECIAL_DISCOUNT;
 import static christmas.domain.Constraints.WEEK_DISCOUNT;
 import static christmas.domain.Constraints.ZERO;
 import static christmas.domain.DiscountType.CHRISTMAS;
+import static christmas.domain.DiscountType.SPECIAL;
 import static christmas.domain.DiscountType.WEEKDAY;
 import static christmas.domain.DiscountType.WEEKEND;
+import static christmas.domain.SpecialDay.NOVEMBER_10;
+import static christmas.domain.SpecialDay.NOVEMBER_17;
+import static christmas.domain.SpecialDay.NOVEMBER_24;
+import static christmas.domain.SpecialDay.NOVEMBER_25;
+import static christmas.domain.SpecialDay.NOVEMBER_3;
+import static christmas.domain.SpecialDay.NOVEMBER_31;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 import java.util.ArrayList;
@@ -89,6 +97,33 @@ class DiscountCalculatorTest {
         return Stream.of(
                 Arguments.of("주말 디저트 메뉴 개당 2023원 할인", 9, WEEK_DISCOUNT.getValue() * 2),
                 Arguments.of("주간 디저트 메뉴 할인 X", 10, ZERO.getValue())
+        );
+    }
+
+    @ParameterizedTest(name = "{index}: {0}")
+    @MethodSource("specialDiscountParameter")
+    @DisplayName("특별 할인 테스트")
+    void specialDiscountTest(String testName, int visitDay, int expectedDiscount) {
+        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+
+        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(SPECIAL.getLabel());
+
+        assertThat(result).isEqualTo(expectedDiscount);
+    }
+
+    static Stream<Arguments> specialDiscountParameter() {
+        return Stream.of(
+                Arguments.of("3일 할인", NOVEMBER_3.getValue(), SPECIAL_DISCOUNT.getValue()),
+                Arguments.of("10일 할인", NOVEMBER_10.getValue(), SPECIAL_DISCOUNT.getValue()),
+                Arguments.of("17일 할인", NOVEMBER_17.getValue(), SPECIAL_DISCOUNT.getValue()),
+                Arguments.of("24일 할인", NOVEMBER_24.getValue(), SPECIAL_DISCOUNT.getValue()),
+                Arguments.of("25일 할인", NOVEMBER_25.getValue(), SPECIAL_DISCOUNT.getValue()),
+                Arguments.of("31일 할인", NOVEMBER_31.getValue(), SPECIAL_DISCOUNT.getValue()),
+
+                Arguments.of("1일 할인 X", 1, ZERO.getValue()),
+                Arguments.of("8일 할인 X", 8, ZERO.getValue()),
+                Arguments.of("26일 할인 X", 26, ZERO.getValue())
         );
     }
 }
