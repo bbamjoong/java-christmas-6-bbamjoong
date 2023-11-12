@@ -67,12 +67,7 @@ class FoodTest {
     void checkPriceTest() {
         Food soup = Food.of("양송이수프", "1");
         int result = soup.price();
-
-        MenuItem expectedMenu = Menu.APPETIZER.getItems().stream()
-                .filter(item -> item.name().equals("양송이수프"))
-                .findFirst()
-                .orElseThrow();
-        int expectedPrice = expectedMenu.price();
+        int expectedPrice = Menu.MUSHROOM_SOUP.getPrice();
 
         assertThat(result).isEqualTo(expectedPrice);
     }
