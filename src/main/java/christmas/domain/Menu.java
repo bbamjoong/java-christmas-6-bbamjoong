@@ -1,42 +1,45 @@
 package christmas.domain;
 
-import java.util.List;
-
 public enum Menu {
-    APPETIZER("애피타이저", List.of(
-            new MenuItem("양송이수프", 6000),
-            new MenuItem("타파스", 5500),
-            new MenuItem("시저샐러드", 8000)
-    )),
-    MAIN("메인", List.of(
-            new MenuItem("티본스테이크", 55000),
-            new MenuItem("바비큐립", 54000),
-            new MenuItem("해산물파스타", 35000),
-            new MenuItem("크리스마스파스타", 25000)
-    )),
-    DESSERT("디저트", List.of(
-            new MenuItem("초코케이크", 15000),
-            new MenuItem("아이스크림", 5000)
-    )),
-    BEVERAGE("음료", List.of(
-            new MenuItem("제로콜라", 3000),
-            new MenuItem("레드와인", 60000),
-            new MenuItem("샴페인", 25000)
-    ));
+    // 애피타이저
+    MUSHROOM_SOUP("양송이수프", 6000, MenuCategory.APPETIZER),
+    TAPAS("타파스", 5500, MenuCategory.APPETIZER),
+    CAESAR_SALAD("시저샐러드", 8000, MenuCategory.APPETIZER),
 
-    private final String category;
-    private final List<MenuItem> items;
+    // 메인
+    TBORN_STEAK("티본스테이크", 55000, MenuCategory.MAIN),
+    BARBEQUE_RIB("바비큐립", 54000, MenuCategory.MAIN),
+    SEAFOOD_PASTA("해산물파스타", 35000, MenuCategory.MAIN),
+    CHRISTMAS_PASTA("크리스마스파스타", 25000, MenuCategory.MAIN),
 
-    Menu(String category, List<MenuItem> items) {
-        this.category = category;
-        this.items = items;
+    // 디저트
+    CHOCOLATE_CAKE("초코케이크", 15000, MenuCategory.DESSERT),
+    ICE_CREAM("아이스크림", 5000, MenuCategory.DESSERT),
+
+    // 음료
+    ZERO_COKE("제로콜라", 3000, MenuCategory.BEVERAGE),
+    RED_WINE("레드와인", 60000, MenuCategory.BEVERAGE),
+    CHAMPAGNE("샴페인", 25000, MenuCategory.BEVERAGE);
+
+    private final String name;
+    private final int price;
+    private final MenuCategory menuCategory;
+
+    Menu(String name, int price, MenuCategory menuCategory) {
+        this.name = name;
+        this.price = price;
+        this.menuCategory = menuCategory;
     }
 
-    public String getCategory() {
-        return category;
+    public String getName() {
+        return name;
     }
 
-    public List<MenuItem> getItems() {
-        return items;
+    public int getPrice() {
+        return price;
+    }
+
+    public MenuCategory getMenuCategory() {
+        return menuCategory;
     }
 }
