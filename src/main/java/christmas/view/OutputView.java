@@ -1,6 +1,7 @@
 package christmas.view;
 
 import static christmas.view.ViewMessage.FOOD_PRESET;
+import static christmas.view.ViewMessage.FREE_GIFT;
 import static christmas.view.ViewMessage.ORDER_MENU;
 import static christmas.view.ViewMessage.PREVIEW_EVENT_BENEFITS;
 import static christmas.view.ViewMessage.PRICE;
@@ -25,5 +26,10 @@ public class OutputView {
     public static void printPrice(int totalPrice) {
         System.out.println(TOTAL_PRICE_BEFORE_DISCOUNT.getMessage());
         System.out.printf(PRICE.getMessage(), totalPrice);
+    }
+
+    public static void printGiftMenu(String giftMenu) {
+        System.out.println(FREE_GIFT.getMessage());
+        System.out.println(giftMenu);
     }
 }

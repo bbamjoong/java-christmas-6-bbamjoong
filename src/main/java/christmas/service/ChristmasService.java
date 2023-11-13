@@ -1,5 +1,9 @@
 package christmas.service;
 
+import static christmas.domain.Constraints.FREE_GIFT_PRICE_THRESHOLD;
+import static christmas.service.ServiceConstraints.GIFT_MENU;
+import static christmas.service.ServiceConstraints.NOTHING;
+
 import christmas.domain.Food;
 import christmas.domain.Foods;
 import christmas.domain.Parser;
@@ -25,5 +29,13 @@ public class ChristmasService {
         return parsedInput.entrySet().stream()
                 .map(entry -> Food.of(entry.getKey(), entry.getValue()))
                 .toList();
+    }
+
+    // 증정 메뉴 찾는 기능
+    public String findFreeGift(int totalPrice) {
+        if (totalPrice >= FREE_GIFT_PRICE_THRESHOLD.getValue()) {
+            return GIFT_MENU.getMessage();
+        }
+        return NOTHING.getMessage();
     }
 }
