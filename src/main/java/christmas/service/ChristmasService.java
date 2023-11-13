@@ -2,6 +2,7 @@ package christmas.service;
 
 import static christmas.domain.Constraints.FREE_GIFT_PRICE_THRESHOLD;
 
+import christmas.domain.Badge;
 import christmas.domain.DiscountCalculator;
 import christmas.domain.DiscountType;
 import christmas.domain.Food;
@@ -47,5 +48,10 @@ public class ChristmasService {
                 .stream()
                 .mapToInt(Integer::intValue)
                 .sum();
+    }
+
+    public String getBadge(int finalPrice) {
+        Badge badge = Badge.getBadgeForPrice(finalPrice);
+        return badge.getName();
     }
 }

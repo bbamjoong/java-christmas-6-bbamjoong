@@ -1,5 +1,6 @@
 package christmas.view;
 
+import static christmas.view.ViewMessage.BADGE_MESSAGE;
 import static christmas.view.ViewMessage.BENEFITS_MESSAGE;
 import static christmas.view.ViewMessage.BENEFITS_PRESET;
 import static christmas.view.ViewMessage.DISCOUNTS_MESSAGE;
@@ -77,5 +78,10 @@ public class OutputView {
     public static void printFinalAmount(int finalAmount) {
         System.out.println(FINAL_AMOUNT_MESSAGE.getMessage());
         System.out.printf(FINAL_AMOUNT_PRESET.getMessage(), finalAmount);
+    }
+
+    public static void printBadgeName(String badgeName) {
+        System.out.println(BADGE_MESSAGE.getMessage());
+        System.out.println(badgeName);
     }
 }

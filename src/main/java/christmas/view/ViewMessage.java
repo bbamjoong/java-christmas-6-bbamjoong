@@ -32,6 +32,9 @@ public enum ViewMessage {
     FINAL_AMOUNT_MESSAGE("\n<할인 후 예상 결제 금액>"),
     FINAL_AMOUNT_PRESET("%,d원\n"),
 
+    // 배지
+    BADGE_MESSAGE("\n<12월 이벤트 배지>"),
+    
     // 없음
     NOTHING("없음\n");
 
