@@ -17,10 +17,13 @@ public enum ViewMessage {
     PRICE("%,d원\n"),
 
     // 증정 메뉴
-    FREE_GIFT("\n<증정 메뉴>");
     FREE_GIFT("\n<증정 메뉴>"),
     GIFT_MENU("샴페인 1개"),
 
+    // 혜택 내역
+    BENEFITS_LIST("\n<혜택 내역>"),
+    BENEFITS_PRESET("%s: -%,d원\n"),
+    // 없음
     NOTHING("없음\n");
 
     private final String message;

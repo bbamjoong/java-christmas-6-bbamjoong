@@ -1,10 +1,13 @@
 package christmas.controller;
 
+import christmas.domain.DiscountCalculator;
+import christmas.domain.DiscountType;
 import christmas.domain.Foods;
 import christmas.domain.VisitDate;
 import christmas.service.ChristmasService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ChristmasController {
@@ -23,6 +26,11 @@ public class ChristmasController {
         int totalPrice = foods.calculateTotalPrice();
         printTotalPriceBeforeDiscount(totalPrice);
         printFreeGift(totalPrice);
+
+        DiscountCalculator discountCalculator = new DiscountCalculator(foods, visitDate.date());
+        Map<DiscountType, Integer> discountsInfo = christmasService.calculateDiscountsMap(discountCalculator);
+        int discounts = christmasService.calculateDiscounts(discountsInfo);
+        printDiscountsInformation(discountsInfo, discounts);
     }
 
     // 방문 날짜 객체 생성
@@ -64,6 +72,15 @@ public class ChristmasController {
     private void printFreeGift(int totalPrice) {
         Boolean freeGift = christmasService.findFreeGift(totalPrice);
         OutputView.printGiftMenu(freeGift);
+    }
+
+    // 혜택 내역 출력
+    private void printDiscountsInformation(Map<DiscountType, Integer> discountsInfo, int discounts) {
+        if (discounts == 0) {
+            OutputView.printNoDiscounts();
+            return;
+        }
+        OutputView.printDiscounts(discountsInfo);
     }
 
     // 함수형 인터페이스

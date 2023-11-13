@@ -1,9 +1,9 @@
 package christmas.service;
 
 import static christmas.domain.Constraints.FREE_GIFT_PRICE_THRESHOLD;
-import static christmas.service.ServiceConstraints.GIFT_MENU;
-import static christmas.service.ServiceConstraints.NOTHING;
 
+import christmas.domain.DiscountCalculator;
+import christmas.domain.DiscountType;
 import christmas.domain.Food;
 import christmas.domain.Foods;
 import christmas.domain.Parser;
@@ -34,5 +34,18 @@ public class ChristmasService {
     // 증정 메뉴 지급 판별
     public Boolean findFreeGift(int totalPrice) {
         return totalPrice >= FREE_GIFT_PRICE_THRESHOLD.getValue();
+    }
+
+    // 할인 내역 Map 반환
+    public Map<DiscountType, Integer> calculateDiscountsMap(DiscountCalculator discountCalculator) {
+        return discountCalculator.calculateDiscount();
+    }
+
+    // 총 할인 금액 계산
+    public int calculateDiscounts(Map<DiscountType, Integer> discounts) {
+        return discounts.values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }
