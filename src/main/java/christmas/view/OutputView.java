@@ -4,6 +4,8 @@ import static christmas.view.ViewMessage.BENEFITS_MESSAGE;
 import static christmas.view.ViewMessage.BENEFITS_PRESET;
 import static christmas.view.ViewMessage.DISCOUNTS_MESSAGE;
 import static christmas.view.ViewMessage.DISCOUNTS_PRESET;
+import static christmas.view.ViewMessage.FINAL_AMOUNT_MESSAGE;
+import static christmas.view.ViewMessage.FINAL_AMOUNT_PRESET;
 import static christmas.view.ViewMessage.FOOD_PRESET;
 import static christmas.view.ViewMessage.FREE_GIFT_MESSAGE;
 import static christmas.view.ViewMessage.GIFT_MENU;
@@ -70,5 +72,10 @@ public class OutputView {
     public static void printDiscountsAmount(int discounts) {
         System.out.println(DISCOUNTS_MESSAGE.getMessage());
         System.out.printf(DISCOUNTS_PRESET.getMessage(), discounts);
+    }
+
+    public static void printFinalAmount(int finalAmount) {
+        System.out.println(FINAL_AMOUNT_MESSAGE.getMessage());
+        System.out.printf(FINAL_AMOUNT_PRESET.getMessage(), finalAmount);
     }
 }

@@ -33,10 +33,7 @@ public class ChristmasController {
         printDiscountsInformation(discountsInfo, discounts);
 
         printDiscountsPrice(discounts);
-    }
-
-    private void printDiscountsPrice(int discounts) {
-        OutputView.printDiscountsAmount(discounts);
+        printFinalPrice(totalPrice, discounts);
     }
 
     // 방문 날짜 객체 생성
@@ -88,6 +85,17 @@ public class ChristmasController {
         }
         OutputView.printDiscounts(discountsInfo);
     }
+
+    // 총혜택 금액 출력
+    private void printDiscountsPrice(int discounts) {
+        OutputView.printDiscountsAmount(discounts);
+    }
+
+    private void printFinalPrice(int totalPrice, int discounts) {
+        int finalAmount = totalPrice - discounts;
+        OutputView.printFinalAmount(finalAmount);
+    }
+
 
     // 함수형 인터페이스
     private <T> T getValidInput(Supplier<T> method) {

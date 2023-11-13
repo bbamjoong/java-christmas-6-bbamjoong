@@ -28,6 +28,10 @@ public enum ViewMessage {
     DISCOUNTS_MESSAGE("\n<총혜택 금액>"),
     DISCOUNTS_PRESET("-%,d원\n"),
 
+    // 할인 후 최종 금액
+    FINAL_AMOUNT_MESSAGE("\n<할인 후 예상 결제 금액>"),
+    FINAL_AMOUNT_PRESET("%,d원\n"),
+
     // 없음
     NOTHING("없음\n");
 
