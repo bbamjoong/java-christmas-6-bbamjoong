@@ -28,8 +28,23 @@ public class OutputView {
         System.out.printf(PRICE.getMessage(), totalPrice);
     }
 
-    public static void printGiftMenu(String giftMenu) {
+    public static void printGiftMenu(Boolean giveGift) {
         System.out.println(FREE_GIFT.getMessage());
         System.out.println(giftMenu);
+        findGift(giveGift);
+    }
+
+    private static void findGift(Boolean giveGift) {
+        if (giveGift) {
+            System.out.println(GIFT_MENU.getMessage());
+            return;
+        }
+        printNothing();
+    }
+
+    private static void printNothing() {
+        System.out.println(NOTHING.getMessage());
+    }
+
     }
 }

@@ -62,7 +62,7 @@ public class ChristmasController {
 
     // 증정 메뉴 출력
     private void printFreeGift(int totalPrice) {
-        String freeGift = christmasService.findFreeGift(totalPrice);
+        Boolean freeGift = christmasService.findFreeGift(totalPrice);
         OutputView.printGiftMenu(freeGift);
     }
 

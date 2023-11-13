@@ -31,11 +31,8 @@ public class ChristmasService {
                 .toList();
     }
 
-    // 증정 메뉴 찾는 기능
-    public String findFreeGift(int totalPrice) {
-        if (totalPrice >= FREE_GIFT_PRICE_THRESHOLD.getValue()) {
-            return GIFT_MENU.getMessage();
-        }
-        return NOTHING.getMessage();
+    // 증정 메뉴 지급 판별
+    public Boolean findFreeGift(int totalPrice) {
+        return totalPrice >= FREE_GIFT_PRICE_THRESHOLD.getValue();
     }
 }
