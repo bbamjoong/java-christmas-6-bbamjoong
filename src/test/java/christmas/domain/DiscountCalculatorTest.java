@@ -12,6 +12,7 @@ import static christmas.domain.DiscountType.CHRISTMAS;
 import static christmas.domain.DiscountType.SPECIAL;
 import static christmas.domain.DiscountType.WEEKDAY;
 import static christmas.domain.DiscountType.WEEKEND;
+import static christmas.domain.Menu.CHAMPAGNE;
 import static christmas.domain.SpecialDay.NOVEMBER_10;
 import static christmas.domain.SpecialDay.NOVEMBER_17;
 import static christmas.domain.SpecialDay.NOVEMBER_24;
@@ -48,8 +49,8 @@ class DiscountCalculatorTest {
     void christmasDiscountTest(String testName, int visitDay, int expectedDiscount) {
         discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
 
-        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
-        Integer result = discounts.get(CHRISTMAS.getLabel());
+        Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(CHRISTMAS);
 
         assertThat(result).isEqualTo(expectedDiscount);
     }
@@ -71,8 +72,8 @@ class DiscountCalculatorTest {
     void weekdayDiscountTest(String testName, int visitDay, int expectedDiscount) {
         discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
 
-        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
-        Integer result = discounts.get(WEEKDAY.getLabel());
+        Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(WEEKDAY);
 
         assertThat(result).isEqualTo(expectedDiscount);
     }
@@ -90,8 +91,8 @@ class DiscountCalculatorTest {
     void weekendDiscountTest(String testName, int visitDay, int expectedDiscount) {
         discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
 
-        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
-        Integer result = discounts.get(WEEKEND.getLabel());
+        Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(WEEKEND);
 
         assertThat(result).isEqualTo(expectedDiscount);
     }
@@ -109,8 +110,8 @@ class DiscountCalculatorTest {
     void specialDiscountTest(String testName, int visitDay, int expectedDiscount) {
         discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
 
-        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
-        Integer result = discounts.get(SPECIAL.getLabel());
+        Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(SPECIAL);
 
         assertThat(result).isEqualTo(expectedDiscount);
     }
@@ -135,10 +136,10 @@ class DiscountCalculatorTest {
     void bonusGiftDiscountTest() {
         discountCalculator = new DiscountCalculator(Foods.of(orderFoods), 1);
 
-        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
-        Integer result = discounts.get(DiscountType.BONUS_GIFT.getLabel());
+        Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(BONUS_GIFT);
 
-        assertThat(result).isEqualTo(Menu.CHAMPAGNE.getPrice());
+        assertThat(result).isEqualTo(CHAMPAGNE.getPrice());
     }
 
     @Test
@@ -148,8 +149,8 @@ class DiscountCalculatorTest {
         noBonusGiftFoods.add(Food.of("초코케이크", "2"));
         discountCalculator = new DiscountCalculator(Foods.of(noBonusGiftFoods), 1);
 
-        Map<String, Integer> discounts = discountCalculator.calculateDiscount();
-        Integer result = discounts.get(DiscountType.BONUS_GIFT.getLabel());
+        Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
+        Integer result = discounts.get(BONUS_GIFT);
 
         assertThat(result).isEqualTo(ZERO.getValue());
     }
@@ -159,16 +160,16 @@ class DiscountCalculatorTest {
     void testChristmasTest() {
         discountCalculator = new DiscountCalculator(Foods.of(orderFoods), CHRISTMAS_EVENT_END_DATE.getValue());
 
-        Map<String, Integer> result = discountCalculator.calculateDiscount();
-        Map<String, Integer> expected = Map.of(
-                CHRISTMAS.getLabel(), BASE_DISCOUNT.getValue() + DISCOUNT_PER_DAY.getValue()
+        Map<DiscountType, Integer> result = discountCalculator.calculateDiscount();
+        Map<DiscountType, Integer> expected = Map.of(
+                CHRISTMAS, BASE_DISCOUNT.getValue() + DISCOUNT_PER_DAY.getValue()
                         * (CHRISTMAS_EVENT_END_DATE.getValue() - CHRISTMAS_EVENT_START_DATE.getValue()),
-                WEEKDAY.getLabel(), WEEK_DISCOUNT.getValue() * 2,
-                WEEKEND.getLabel(), ZERO.getValue(),
-                SPECIAL.getLabel(), SPECIAL_DISCOUNT.getValue(),
-                BONUS_GIFT.getLabel(), Menu.CHAMPAGNE.getPrice()
+                WEEKDAY, WEEK_DISCOUNT.getValue() * 2,
+                WEEKEND, ZERO.getValue(),
+                SPECIAL, SPECIAL_DISCOUNT.getValue(),
+                BONUS_GIFT, CHAMPAGNE.getPrice()
         );
-        
+
         assertThat(result).isEqualTo(expected);
     }
 }

@@ -30,13 +30,13 @@ public class DiscountCalculator {
         this.visitDay = visitDay;
     }
 
-    public Map<String, Integer> calculateDiscount() {
+    public Map<DiscountType, Integer> calculateDiscount() {
         return Map.of(
-                CHRISTMAS.getLabel(), applyChristmasEventDiscount(),
-                WEEKDAY.getLabel(), applyWeekdayDiscount(),
-                WEEKEND.getLabel(), applyWeekendDiscount(),
-                SPECIAL.getLabel(), applySpecialDayDiscount(),
-                BONUS_GIFT.getLabel(), applyBonusGiftDiscount()
+                CHRISTMAS, applyChristmasEventDiscount(),
+                WEEKDAY, applyWeekdayDiscount(),
+                WEEKEND, applyWeekendDiscount(),
+                SPECIAL, applySpecialDayDiscount(),
+                BONUS_GIFT, applyBonusGiftDiscount()
         );
     }
 
