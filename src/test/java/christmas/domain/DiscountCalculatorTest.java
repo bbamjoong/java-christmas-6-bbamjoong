@@ -34,7 +34,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class DiscountCalculatorTest {
     List<Food> orderFoods;
-    DiscountCalculator discountCalculator;
 
     @BeforeEach
     void setUp() {
