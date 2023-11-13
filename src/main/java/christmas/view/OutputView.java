@@ -67,12 +67,12 @@ public class OutputView {
                 .stream()
                 .filter(entry -> entry.getValue() != 0)
                 .forEach(entry -> System.out.printf(BENEFITS_PRESET.getMessage(), entry.getKey().getMessage(),
-                        entry.getValue()));
+                        -entry.getValue()));
     }
 
     public static void printDiscountsAmount(int discounts) {
         System.out.println(DISCOUNTS_MESSAGE.getMessage());
-        System.out.printf(DISCOUNTS_PRESET.getMessage(), discounts);
+        System.out.printf(DISCOUNTS_PRESET.getMessage(), -discounts);
     }
 
     public static void printFinalAmount(int finalAmount) {

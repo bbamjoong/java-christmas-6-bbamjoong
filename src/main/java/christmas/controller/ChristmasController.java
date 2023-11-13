@@ -34,9 +34,10 @@ public class ChristmasController {
 
         printDiscountsPrice(discounts);
 
-        int finalPrice = totalPrice - discounts;
+        int discountsExceptFreeGift = christmasService.calculateDiscountExceptFreeGift(discountsInfo);
+        int finalPrice = totalPrice - discountsExceptFreeGift;
         printFinalPrice(finalPrice);
-        printBadge(finalPrice);
+        printBadge(discountsExceptFreeGift);
     }
 
     // 방문 날짜 객체 생성

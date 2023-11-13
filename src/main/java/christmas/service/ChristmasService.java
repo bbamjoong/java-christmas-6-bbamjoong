@@ -50,6 +50,14 @@ public class ChristmasService {
                 .sum();
     }
 
+    public int calculateDiscountExceptFreeGift(Map<DiscountType, Integer> discounts) {
+        return discounts.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey() != DiscountType.BONUS_GIFT)
+                .mapToInt(Map.Entry::getValue)
+                .sum();
+    }
+
     public String getBadge(int finalPrice) {
         Badge badge = Badge.getBadgeForPrice(finalPrice);
         return badge.getName();

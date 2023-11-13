@@ -22,11 +22,11 @@ public enum ViewMessage {
 
     // 혜택 내역
     BENEFITS_MESSAGE("\n<혜택 내역>"),
-    BENEFITS_PRESET("%s: -%,d원\n"),
+    BENEFITS_PRESET("%s: %,d원\n"),
 
     // 총 할인 금액
     DISCOUNTS_MESSAGE("\n<총혜택 금액>"),
-    DISCOUNTS_PRESET("-%,d원\n"),
+    DISCOUNTS_PRESET("%,d원\n"),
 
     // 할인 후 최종 금액
     FINAL_AMOUNT_MESSAGE("\n<할인 후 예상 결제 금액>"),
@@ -34,9 +34,9 @@ public enum ViewMessage {
 
     // 배지
     BADGE_MESSAGE("\n<12월 이벤트 배지>"),
-    
+
     // 없음
-    NOTHING("없음\n");
+    NOTHING("없음");
 
     private final String message;
 
