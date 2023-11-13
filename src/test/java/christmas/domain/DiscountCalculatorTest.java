@@ -47,7 +47,8 @@ class DiscountCalculatorTest {
     @MethodSource("christmasDiscountParameter")
     @DisplayName("날짜에 따른 크리스마스 할인 테스트")
     void christmasDiscountTest(String testName, int visitDay, int expectedDiscount) {
-        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+        Foods orderedFoods = Foods.of(orderFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, visitDay);
 
         Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
         Integer result = discounts.get(CHRISTMAS);
@@ -70,7 +71,8 @@ class DiscountCalculatorTest {
     @MethodSource("weekdayDiscountParameter")
     @DisplayName("주간 메인 메뉴 할인 테스트")
     void weekdayDiscountTest(String testName, int visitDay, int expectedDiscount) {
-        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+        Foods orderedFoods = Foods.of(orderFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, visitDay);
 
         Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
         Integer result = discounts.get(WEEKDAY);
@@ -89,7 +91,8 @@ class DiscountCalculatorTest {
     @MethodSource("weekendDiscountParameter")
     @DisplayName("주말 디저트 메뉴 할인 테스트")
     void weekendDiscountTest(String testName, int visitDay, int expectedDiscount) {
-        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+        Foods orderedFoods = Foods.of(orderFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, visitDay);
 
         Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
         Integer result = discounts.get(WEEKEND);
@@ -108,7 +111,8 @@ class DiscountCalculatorTest {
     @MethodSource("specialDiscountParameter")
     @DisplayName("특별 할인 테스트")
     void specialDiscountTest(String testName, int visitDay, int expectedDiscount) {
-        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), visitDay);
+        Foods orderedFoods = Foods.of(orderFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, visitDay);
 
         Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
         Integer result = discounts.get(SPECIAL);
@@ -134,7 +138,8 @@ class DiscountCalculatorTest {
     @Test
     @DisplayName("120,000 이상 구매 샴페인 증정")
     void bonusGiftDiscountTest() {
-        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), 1);
+        Foods orderedFoods = Foods.of(orderFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, 1);
 
         Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
         Integer result = discounts.get(BONUS_GIFT);
@@ -147,7 +152,8 @@ class DiscountCalculatorTest {
     void noBonusGiftDiscountTest() {
         List<Food> noBonusGiftFoods = new ArrayList<>();
         noBonusGiftFoods.add(Food.of("초코케이크", "2"));
-        discountCalculator = new DiscountCalculator(Foods.of(noBonusGiftFoods), 1);
+        Foods orderedFoods = Foods.of(noBonusGiftFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, 1);
 
         Map<DiscountType, Integer> discounts = discountCalculator.calculateDiscount();
         Integer result = discounts.get(BONUS_GIFT);
@@ -158,7 +164,9 @@ class DiscountCalculatorTest {
     @Test
     @DisplayName("12월 25일 : 크리스마스 할인 + 주간 메인 메뉴 할인 + 특별 할인 + 샴페인 증정")
     void testChristmasTest() {
-        discountCalculator = new DiscountCalculator(Foods.of(orderFoods), CHRISTMAS_EVENT_END_DATE.getValue());
+        Foods orderedFoods = Foods.of(orderFoods);
+        DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods,
+                CHRISTMAS_EVENT_END_DATE.getValue());
 
         Map<DiscountType, Integer> result = discountCalculator.calculateDiscount();
         Map<DiscountType, Integer> expected = Map.of(

@@ -25,11 +25,15 @@ public class DiscountCalculator {
     private final int visitDay;
     private final Foods foods;
 
-    public DiscountCalculator(Foods foods, int visitDay) {
+    private DiscountCalculator(Foods foods, int visitDay) {
         this.foods = foods;
         this.visitDay = visitDay;
     }
 
+    public static DiscountCalculator of(Foods foods, int visitDay) {
+        return new DiscountCalculator(foods, visitDay);
+    }
+    
     public Map<DiscountType, Integer> calculateDiscount() {
         return Map.of(
                 CHRISTMAS, applyChristmasEventDiscount(),
