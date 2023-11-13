@@ -1,15 +1,24 @@
 package christmas.view;
 
+import static christmas.view.ViewMessage.REQUIRE_MENU;
 import static christmas.view.ViewMessage.REQUIRE_VISIT_DATE;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.exceptions.InvalidDateException;
+import christmas.exceptions.InvalidOrderException;
 
 public class InputView {
     public static String printVisitDate() {
         System.out.println(REQUIRE_VISIT_DATE.getMessage());
         String input = Console.readLine();
         validate(input, new InvalidDateException());
+        return input;
+    }
+
+    public static String printMenu() {
+        System.out.println(REQUIRE_MENU.getMessage());
+        String input = Console.readLine();
+        validate(input, new InvalidOrderException());
         return input;
     }
 

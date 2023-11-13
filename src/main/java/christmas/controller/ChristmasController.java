@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.Foods;
 import christmas.domain.VisitDate;
 import christmas.service.ChristmasService;
 import christmas.view.InputView;
@@ -14,6 +15,7 @@ public class ChristmasController {
 
     public void run() {
         VisitDate visitDate = getValidVisitDate();
+        Foods foods = getValidFoods();
     }
 
     // 방문 날짜 객체 생성
@@ -26,7 +28,17 @@ public class ChristmasController {
         return christmasService.getVisitDate(input);
     }
 
+    // Foods 객체 생성
+    public Foods getValidFoods() {
+        return getValidInput(this::createFoods);
+    }
 
+    private Foods createFoods() {
+        String input = InputView.printMenu();
+        return christmasService.getFoods(input);
+    }
+
+    // 함수형 인터페이스
     private <T> T getValidInput(Supplier<T> method) {
         while (true) {
             try {
