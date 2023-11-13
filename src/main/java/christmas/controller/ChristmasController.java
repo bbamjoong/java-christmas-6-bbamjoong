@@ -18,6 +18,7 @@ public class ChristmasController {
         VisitDate visitDate = getValidVisitDate();
         Foods foods = getValidFoods();
         OutputView.printPreviewEventBenefits();
+        printPreviewBenefitsMessage();
     }
 
     // 방문 날짜 객체 생성
@@ -38,6 +39,11 @@ public class ChristmasController {
     private Foods createFoods() {
         String input = InputView.printMenu();
         return christmasService.getFoods(input);
+    }
+
+    // 이벤트 혜택 미리보기 메시지 출력
+    private void printPreviewBenefitsMessage() {
+        OutputView.printPreviewEventBenefits();
     }
 
     // 함수형 인터페이스
