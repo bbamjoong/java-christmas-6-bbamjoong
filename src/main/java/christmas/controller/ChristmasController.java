@@ -31,6 +31,12 @@ public class ChristmasController {
         Map<DiscountType, Integer> discountsInfo = christmasService.calculateDiscountsMap(discountCalculator);
         int discounts = christmasService.calculateDiscounts(discountsInfo);
         printDiscountsInformation(discountsInfo, discounts);
+
+        printDiscountsPrice(discounts);
+    }
+
+    private void printDiscountsPrice(int discounts) {
+        OutputView.printDiscountsAmount(discounts);
     }
 
     // 방문 날짜 객체 생성

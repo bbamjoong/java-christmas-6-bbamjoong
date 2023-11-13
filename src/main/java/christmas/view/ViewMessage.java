@@ -23,6 +23,11 @@ public enum ViewMessage {
     // 혜택 내역
     BENEFITS_MESSAGE("\n<혜택 내역>"),
     BENEFITS_PRESET("%s: -%,d원\n"),
+
+    // 총 할인 금액
+    DISCOUNTS_MESSAGE("\n<총혜택 금액>"),
+    DISCOUNTS_PRESET("-%,d원\n"),
+
     // 없음
     NOTHING("없음\n");
 
