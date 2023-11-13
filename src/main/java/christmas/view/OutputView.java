@@ -1,15 +1,17 @@
 package christmas.view;
 
-import static christmas.view.ViewMessage.BENEFITS_LIST;
+import static christmas.view.ViewMessage.BENEFITS_MESSAGE;
 import static christmas.view.ViewMessage.BENEFITS_PRESET;
+import static christmas.view.ViewMessage.DISCOUNTS_MESSAGE;
+import static christmas.view.ViewMessage.DISCOUNTS_PRESET;
 import static christmas.view.ViewMessage.FOOD_PRESET;
-import static christmas.view.ViewMessage.FREE_GIFT;
+import static christmas.view.ViewMessage.FREE_GIFT_MESSAGE;
 import static christmas.view.ViewMessage.GIFT_MENU;
 import static christmas.view.ViewMessage.NOTHING;
-import static christmas.view.ViewMessage.ORDER_MENU;
-import static christmas.view.ViewMessage.PREVIEW_EVENT_BENEFITS;
+import static christmas.view.ViewMessage.ORDER_MENU_MESSAGE;
+import static christmas.view.ViewMessage.PREVIEW_EVENT_BENEFITS_MESSAGE;
 import static christmas.view.ViewMessage.PRICE;
-import static christmas.view.ViewMessage.TOTAL_PRICE_BEFORE_DISCOUNT;
+import static christmas.view.ViewMessage.TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE;
 
 import christmas.domain.DiscountType;
 import christmas.domain.Foods;
@@ -17,11 +19,11 @@ import java.util.Map;
 
 public class OutputView {
     public static void printPreviewEventBenefits() {
-        System.out.println(PREVIEW_EVENT_BENEFITS.getMessage());
+        System.out.println(PREVIEW_EVENT_BENEFITS_MESSAGE.getMessage());
     }
 
     public static void printFoods(Foods foods) {
-        System.out.println(ORDER_MENU.getMessage());
+        System.out.println(ORDER_MENU_MESSAGE.getMessage());
         foods.orderFoods().forEach(orderFood -> printSingleFood(orderFood.name(), orderFood.count()));
     }
 
@@ -30,12 +32,12 @@ public class OutputView {
     }
 
     public static void printPrice(int totalPrice) {
-        System.out.println(TOTAL_PRICE_BEFORE_DISCOUNT.getMessage());
+        System.out.println(TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE.getMessage());
         System.out.printf(PRICE.getMessage(), totalPrice);
     }
 
     public static void printGiftMenu(Boolean giveGift) {
-        System.out.println(FREE_GIFT.getMessage());
+        System.out.println(FREE_GIFT_MESSAGE.getMessage());
         findGift(giveGift);
     }
 
@@ -52,12 +54,12 @@ public class OutputView {
     }
 
     public static void printNoDiscounts() {
-        System.out.println(BENEFITS_LIST.getMessage());
+        System.out.println(BENEFITS_MESSAGE.getMessage());
         printNothing();
     }
 
     public static void printDiscounts(Map<DiscountType, Integer> discountsInfo) {
-        System.out.println(BENEFITS_LIST.getMessage());
+        System.out.println(BENEFITS_MESSAGE.getMessage());
         discountsInfo.entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() != 0)
