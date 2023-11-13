@@ -19,6 +19,7 @@ public class ChristmasController {
         Foods foods = getValidFoods();
         printPreviewBenefitsMessage();
         printOrderMenu(foods);
+        printTotalPriceBeforeDiscount(foods);
     }
 
     // 방문 날짜 객체 생성
@@ -49,6 +50,12 @@ public class ChristmasController {
     // 주문 메뉴 출력
     private void printOrderMenu(Foods foods) {
         OutputView.printFoods(foods);
+    }
+
+    // 할인 전 총주문 금액 출력
+    private void printTotalPriceBeforeDiscount(Foods foods) {
+        int totalPrice = foods.calculateTotalPrice();
+        OutputView.printPrice(totalPrice);
     }
 
     // 함수형 인터페이스
