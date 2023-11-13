@@ -4,6 +4,7 @@ import christmas.domain.Foods;
 import christmas.domain.VisitDate;
 import christmas.service.ChristmasService;
 import christmas.view.InputView;
+import christmas.view.OutputView;
 import java.util.function.Supplier;
 
 public class ChristmasController {
@@ -16,6 +17,7 @@ public class ChristmasController {
     public void run() {
         VisitDate visitDate = getValidVisitDate();
         Foods foods = getValidFoods();
+        OutputView.printPreviewEventBenefits();
     }
 
     // 방문 날짜 객체 생성
