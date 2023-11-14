@@ -1,21 +1,25 @@
 package christmas.domain;
 
-import static christmas.domain.Constraints.BASE_DISCOUNT;
-import static christmas.domain.Constraints.CHRISTMAS_EVENT_END_DATE;
-import static christmas.domain.Constraints.CHRISTMAS_EVENT_START_DATE;
-import static christmas.domain.Constraints.DISCOUNT_PER_DAY;
-import static christmas.domain.Constraints.EVENT_MONTH;
-import static christmas.domain.Constraints.EVENT_YEAR;
-import static christmas.domain.Constraints.FREE_GIFT_PRICE_THRESHOLD;
-import static christmas.domain.Constraints.SPECIAL_DISCOUNT;
-import static christmas.domain.Constraints.WEEK_DISCOUNT;
-import static christmas.domain.Constraints.ZERO;
-import static christmas.domain.DiscountType.BONUS_GIFT;
-import static christmas.domain.DiscountType.CHRISTMAS;
-import static christmas.domain.DiscountType.SPECIAL;
-import static christmas.domain.DiscountType.WEEKDAY;
-import static christmas.domain.DiscountType.WEEKEND;
+import static christmas.domain.enums.Constraints.BASE_DISCOUNT;
+import static christmas.domain.enums.Constraints.CHRISTMAS_EVENT_END_DATE;
+import static christmas.domain.enums.Constraints.CHRISTMAS_EVENT_START_DATE;
+import static christmas.domain.enums.Constraints.DISCOUNT_PER_DAY;
+import static christmas.domain.enums.Constraints.EVENT_MONTH;
+import static christmas.domain.enums.Constraints.EVENT_YEAR;
+import static christmas.domain.enums.Constraints.FREE_GIFT_PRICE_THRESHOLD;
+import static christmas.domain.enums.Constraints.SPECIAL_DISCOUNT;
+import static christmas.domain.enums.Constraints.WEEK_DISCOUNT;
+import static christmas.domain.enums.Constraints.ZERO;
+import static christmas.domain.enums.DiscountType.BONUS_GIFT;
+import static christmas.domain.enums.DiscountType.CHRISTMAS;
+import static christmas.domain.enums.DiscountType.SPECIAL;
+import static christmas.domain.enums.DiscountType.WEEKDAY;
+import static christmas.domain.enums.DiscountType.WEEKEND;
 
+import christmas.domain.enums.DiscountType;
+import christmas.domain.enums.Menu;
+import christmas.domain.enums.MenuCategory;
+import christmas.domain.enums.SpecialDay;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -33,7 +37,7 @@ public class DiscountCalculator {
     public static DiscountCalculator of(Foods foods, int visitDay) {
         return new DiscountCalculator(foods, visitDay);
     }
-    
+
     public Map<DiscountType, Integer> calculateDiscount() {
         return Map.of(
                 CHRISTMAS, applyChristmasEventDiscount(),

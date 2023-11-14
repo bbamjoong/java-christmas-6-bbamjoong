@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.domain.enums.Menu;
+import christmas.domain.enums.MenuCategory;
 import christmas.exceptions.InvalidOrderException;
 
 public record Food(String name, int count, int price, MenuCategory menuCategory) {

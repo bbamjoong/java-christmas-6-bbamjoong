@@ -16,8 +16,8 @@ import static christmas.view.ViewMessage.PREVIEW_EVENT_BENEFITS_MESSAGE;
 import static christmas.view.ViewMessage.PRICE;
 import static christmas.view.ViewMessage.TOTAL_PRICE_BEFORE_DISCOUNT_MESSAGE;
 
-import christmas.domain.DiscountType;
 import christmas.domain.Foods;
+import christmas.domain.enums.DiscountType;
 import java.util.Map;
 
 public class OutputView {

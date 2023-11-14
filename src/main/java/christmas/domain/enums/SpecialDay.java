@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.enums;
 
 public enum SpecialDay {
     NOVEMBER_3(3),

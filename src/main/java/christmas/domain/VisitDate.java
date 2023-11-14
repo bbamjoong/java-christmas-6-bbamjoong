@@ -1,7 +1,7 @@
 package christmas.domain;
 
-import static christmas.domain.Constraints.END_DATE;
-import static christmas.domain.Constraints.START_DATE;
+import static christmas.domain.enums.Constraints.END_DATE;
+import static christmas.domain.enums.Constraints.START_DATE;
 
 import christmas.exceptions.InvalidDateException;
 

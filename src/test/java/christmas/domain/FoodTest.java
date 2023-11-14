@@ -4,6 +4,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+import christmas.domain.enums.Menu;
 import christmas.exceptions.InvalidOrderException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;

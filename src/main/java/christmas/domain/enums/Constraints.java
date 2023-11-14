@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.enums;
 
 public enum Constraints {
     //메뉴, 개수 입력 검증

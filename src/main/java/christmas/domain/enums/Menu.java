@@ -1,4 +1,4 @@
-package christmas.domain;
+package christmas.domain.enums;
 
 public enum Menu {
     // 애피타이저

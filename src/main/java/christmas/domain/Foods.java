@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import static christmas.domain.Constraints.COUNT_THRESHOLD;
+import static christmas.domain.enums.Constraints.COUNT_THRESHOLD;
 
 import christmas.exceptions.InvalidOrderException;
 import java.util.List;

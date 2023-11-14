@@ -1,10 +1,10 @@
 package christmas.controller;
 
-import christmas.domain.Constraints;
 import christmas.domain.DiscountCalculator;
-import christmas.domain.DiscountType;
 import christmas.domain.Foods;
 import christmas.domain.VisitDate;
+import christmas.domain.enums.Constraints;
+import christmas.domain.enums.DiscountType;
 import christmas.service.ChristmasService;
 import christmas.view.InputView;
 import christmas.view.OutputView;

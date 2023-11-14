@@ -1,6 +1,6 @@
 package christmas.domain;
 
-import static christmas.domain.Constraints.PAIR_SIZE;
+import static christmas.domain.enums.Constraints.PAIR_SIZE;
 
 import christmas.exceptions.InvalidOrderException;
 import java.util.Arrays;

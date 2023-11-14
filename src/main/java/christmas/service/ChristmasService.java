@@ -1,14 +1,14 @@
 package christmas.service;
 
-import static christmas.domain.Constraints.FREE_GIFT_PRICE_THRESHOLD;
+import static christmas.domain.enums.Constraints.FREE_GIFT_PRICE_THRESHOLD;
 
-import christmas.domain.Badge;
 import christmas.domain.DiscountCalculator;
-import christmas.domain.DiscountType;
 import christmas.domain.Food;
 import christmas.domain.Foods;
 import christmas.domain.Parser;
 import christmas.domain.VisitDate;
+import christmas.domain.enums.Badge;
+import christmas.domain.enums.DiscountType;
 import java.util.List;
 import java.util.Map;
 
