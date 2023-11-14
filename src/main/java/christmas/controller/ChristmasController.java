@@ -139,8 +139,8 @@ public class ChristmasController {
     }
 
     // 배지 출력
-    private void printBadge(int finalPrice) {
-        String badgeName = christmasService.getBadge(finalPrice);
+    private void printBadge(int totalDiscounts) {
+        String badgeName = christmasService.getBadge(totalDiscounts);
         OutputView.printBadgeName(badgeName);
     }
 

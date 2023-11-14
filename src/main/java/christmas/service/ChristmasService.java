@@ -50,6 +50,7 @@ public class ChristmasService {
                 .sum();
     }
 
+    // 증정품을 제외한 할인금액 계산
     public int calculateDiscountExceptFreeGift(Map<DiscountType, Integer> discounts) {
         return discounts.entrySet()
                 .stream()
@@ -58,8 +59,9 @@ public class ChristmasService {
                 .sum();
     }
 
-    public String getBadge(int finalPrice) {
-        Badge badge = Badge.getBadgeForPrice(finalPrice);
+    // 배지 정보 계산
+    public String getBadge(int discountsPrice) {
+        Badge badge = Badge.getBadgeForPrice(discountsPrice);
         return badge.getName();
     }
 }
