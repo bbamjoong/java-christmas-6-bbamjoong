@@ -50,8 +50,13 @@ public class ChristmasService {
                 .sum();
     }
 
+    // 할인 후 예상 결제 금액
+    public int calculateFinalPrice(Map<DiscountType, Integer> discounts, int totalPrice) {
+        return totalPrice - calculateDiscountExceptFreeGift(discounts);
+    }
+
     // 증정품을 제외한 할인금액 계산
-    public int calculateDiscountExceptFreeGift(Map<DiscountType, Integer> discounts) {
+    private int calculateDiscountExceptFreeGift(Map<DiscountType, Integer> discounts) {
         return discounts.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey() != DiscountType.BONUS_GIFT)

@@ -97,15 +97,15 @@ class ChristmasServiceTest {
     }
 
     @Test
-    @DisplayName("증정품을 제외한 할인금액 계산")
-    void calculateDiscountExceptFreeGiftTest() {
+    @DisplayName("할인 후 예상 결제 금액 계산(totalPrice 150_000원)")
+    void calculateFinalPriceTest() {
         Map<DiscountType, Integer> discounts = Map.of(
                 DiscountType.CHRISTMAS, 1000,
                 DiscountType.BONUS_GIFT, CHAMPAGNE.getPrice()
         );
 
-        int result = christmasService.calculateDiscountExceptFreeGift(discounts);
-        int expected = 1000;
+        int result = christmasService.calculateFinalPrice(discounts, 150_000);
+        int expected = 149_000;
 
         assertThat(result).isEqualTo(expected);
     }

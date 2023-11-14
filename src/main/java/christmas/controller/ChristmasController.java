@@ -23,9 +23,9 @@ public class ChristmasController {
     public void run() {
         handleDecemberEvent();
 
-        int totalPrice = calculateTotalPrice();
-        Map<DiscountType, Integer> discountsInfo = calculateDiscountsInfo();
-        int finalPrice = calculateFinalPrice(totalPrice, discountsInfo);
+        int totalPrice = getTotalPrice();
+        Map<DiscountType, Integer> discountsInfo = getDiscountsInfo();
+        int finalPrice = getFinalPrice(totalPrice, discountsInfo);
 
         printEventDetails(totalPrice, discountsInfo, finalPrice);
     }
@@ -59,12 +59,12 @@ public class ChristmasController {
     }
 
     // 총 주문 가격 계산
-    private int calculateTotalPrice() {
+    private int getTotalPrice() {
         return foods.calculateTotalPrice();
     }
 
     // 할인 정보 계산
-    private Map<DiscountType, Integer> calculateDiscountsInfo() {
+    private Map<DiscountType, Integer> getDiscountsInfo() {
         return christmasService.calculateDiscountsMap(
                 DiscountCalculator.of(foods, visitDate.date())
         );
@@ -75,10 +75,9 @@ public class ChristmasController {
         return christmasService.calculateDiscounts(discountsInfo);
     }
 
-    // 최종 결제 예정 가격 계산
-    private int calculateFinalPrice(int totalPrice, Map<DiscountType, Integer> discountsInfo) {
-        int discountsExceptFreeGift = christmasService.calculateDiscountExceptFreeGift(discountsInfo);
-        return totalPrice - discountsExceptFreeGift;
+    // 할인 후 예상 결제 금액 계산
+    private int getFinalPrice(int totalPrice, Map<DiscountType, Integer> discountsInfo) {
+        return christmasService.calculateFinalPrice(discountsInfo, totalPrice);
     }
 
     // 이벤트 세부 정보 출력
