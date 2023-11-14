@@ -1,5 +1,6 @@
 package christmas.view;
 
+import static christmas.domain.enums.Constraints.ZERO;
 import static christmas.view.ViewMessage.BADGE_MESSAGE;
 import static christmas.view.ViewMessage.BENEFITS_MESSAGE;
 import static christmas.view.ViewMessage.BENEFITS_PRESET;
@@ -65,7 +66,7 @@ public class OutputView {
         System.out.println(BENEFITS_MESSAGE.getMessage());
         discountsInfo.entrySet()
                 .stream()
-                .filter(entry -> entry.getValue() != 0)
+                .filter(entry -> entry.getValue() != ZERO.getValue())
                 .forEach(entry -> System.out.printf(BENEFITS_PRESET.getMessage(), entry.getKey().getMessage(),
                         -entry.getValue()));
     }

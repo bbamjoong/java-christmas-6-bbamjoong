@@ -86,8 +86,8 @@ public class ChristmasController {
         int totalDiscounts = calculateTotalDiscounts(discountsInfo);
 
         printEventBenefits(totalPrice);
-        printEventResult(finalPrice, totalDiscounts);
         printDiscountInformation(discountsInfo, totalDiscounts);
+        printEventResult(finalPrice, totalDiscounts);
     }
 
     // 이벤트 혜택 출력
