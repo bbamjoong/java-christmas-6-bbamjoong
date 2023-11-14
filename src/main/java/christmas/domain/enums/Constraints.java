@@ -3,6 +3,8 @@ package christmas.domain.enums;
 public enum Constraints {
     //메뉴, 개수 입력 검증
     COUNT_THRESHOLD(20),
+    KEY_INDEX(0),
+    VALUE_INDEX(1),
     PAIR_SIZE(2),
 
     // 이벤트 연도, 월
