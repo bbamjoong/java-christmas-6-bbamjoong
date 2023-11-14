@@ -8,7 +8,6 @@ import static christmas.domain.enums.Constraints.EVENT_MONTH;
 import static christmas.domain.enums.Constraints.EVENT_YEAR;
 import static christmas.domain.enums.Constraints.FREE_GIFT_PRICE_THRESHOLD;
 import static christmas.domain.enums.Constraints.SPECIAL_DISCOUNT;
-import static christmas.domain.enums.Constraints.WEEK_DISCOUNT;
 import static christmas.domain.enums.Constraints.ZERO;
 import static christmas.domain.enums.DiscountType.BONUS_GIFT;
 import static christmas.domain.enums.DiscountType.CHRISTMAS;
@@ -73,7 +72,7 @@ public class DiscountCalculator {
     private int applyWeekdayDiscount() {
         DayOfWeek dayOfWeek = LocalDate.of(EVENT_YEAR.getValue(), EVENT_MONTH.getValue(), visitDay).getDayOfWeek();
         if (dayOfWeek != DayOfWeek.FRIDAY && dayOfWeek != DayOfWeek.SATURDAY) {
-            return calculateDiscountByCategory(MenuCategory.MAIN);
+            return foods.calculateDiscountByCategory(MenuCategory.MAIN);
         }
         return ZERO.getValue();
     }
@@ -82,17 +81,9 @@ public class DiscountCalculator {
     private int applyWeekendDiscount() {
         DayOfWeek dayOfWeek = LocalDate.of(EVENT_YEAR.getValue(), EVENT_MONTH.getValue(), visitDay).getDayOfWeek();
         if (dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY) {
-            return calculateDiscountByCategory(MenuCategory.DESSERT);
+            return foods.calculateDiscountByCategory(MenuCategory.DESSERT);
         }
         return ZERO.getValue();
-    }
-
-    // 해당 카테고리 메뉴 할인
-    private int calculateDiscountByCategory(MenuCategory category) {
-        return foods.orderFoods().stream()
-                .filter(food -> food.menuCategory() == category)
-                .mapToInt(food -> food.count() * WEEK_DISCOUNT.getValue())
-                .sum();
     }
 
     // 특별 할인

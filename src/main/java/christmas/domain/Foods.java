@@ -2,6 +2,7 @@ package christmas.domain;
 
 import static christmas.domain.enums.Constraints.COUNT_THRESHOLD;
 
+import christmas.domain.enums.MenuCategory;
 import christmas.exceptions.InvalidOrderException;
 import java.util.List;
 
@@ -25,9 +26,18 @@ public record Foods(List<Food> orderFoods) {
         return foods.stream().mapToInt(Food::count).sum();
     }
 
+    // 음식 전체 가격 계산
     public int calculateTotalPrice() {
         return orderFoods.stream()
-                .mapToInt(food -> food.count() * food.price())
+                .mapToInt(Food::calculateFoodPrice)
+                .sum();
+    }
+
+    // 카테고리별 할인 금액 계산
+    public int calculateDiscountByCategory(MenuCategory category) {
+        return orderFoods.stream()
+                .filter(food -> food.checkCategory(category))
+                .mapToInt(Food::calculateDiscount)
                 .sum();
     }
 }
