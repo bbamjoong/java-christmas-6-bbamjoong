@@ -65,7 +65,7 @@ public class ChristmasController {
 
     // 할인 정보 계산
     private Map<DiscountType, Integer> getDiscountsInfo() {
-        return christmasService.calculateDiscountsMap(
+        return christmasService.calculateDiscountsInfo(
                 DiscountCalculator.of(foods, visitDate.date())
         );
     }

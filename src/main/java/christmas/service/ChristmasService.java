@@ -38,7 +38,7 @@ public class ChristmasService {
     }
 
     // 할인 내역 Map 반환
-    public Map<DiscountType, Integer> calculateDiscountsMap(DiscountCalculator discountCalculator) {
+    public Map<DiscountType, Integer> calculateDiscountsInfo(DiscountCalculator discountCalculator) {
         return discountCalculator.calculateDiscount();
     }
 

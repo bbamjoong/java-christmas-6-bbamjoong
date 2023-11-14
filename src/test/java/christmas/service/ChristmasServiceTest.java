@@ -77,7 +77,7 @@ class ChristmasServiceTest {
                 Food.of("티본스테이크", "2")));
 
         DiscountCalculator discountCalculator = DiscountCalculator.of(orderedFoods, 1);
-        Map<DiscountType, Integer> discounts = christmasService.calculateDiscountsMap(discountCalculator);
+        Map<DiscountType, Integer> discounts = christmasService.calculateDiscountsInfo(discountCalculator);
 
         assertThat(discounts.containsValue(BASE_DISCOUNT.getValue())).isTrue();
     }
